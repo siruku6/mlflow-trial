@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  mlflow-ui:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    # command: sh ./docker/cmd.sh
+    command: mlflow ui --host 0.0.0.0
+    environment:
+      - TZ=Asia/Tokyo
+
+    # Fix slow shutdown of web container
+    # See: https://stackoverflow.com/a/62854251/1749551
+    init: true
+    volumes:
+      - ..:/opt
+    ports:
+      # For mlflow ui
+      - 5000:5000
+      # - ${PORT}:${PORT}
+
+    # INFO: Following two lines are necessary for the backtrace by pdb
+    stdin_open: true
+    tty: true
