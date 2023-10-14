@@ -163,6 +163,8 @@ cython_debug/
 # -------------------------------------
 # Customized settings
 # -------------------------------------
+mlartifacts/**
 mlruns/
 notebooks/*
 !notebooks/.keep
+!notebooks/231014_mlflow_trial.ipynb
