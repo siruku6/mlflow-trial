@@ -4,10 +4,11 @@ services:
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
-    # command: sh ./docker/cmd.sh
-    command: mlflow ui --host 0.0.0.0
+    command: sh ./docker/cmd.sh
     environment:
       - TZ=Asia/Tokyo
+    env_file:
+      - .env
 
     # Fix slow shutdown of web container
     # See: https://stackoverflow.com/a/62854251/1749551
@@ -15,9 +16,8 @@ services:
     volumes:
       - ..:/opt
     ports:
-      # For mlflow ui
-      - 5000:5000
-      # - ${PORT}:${PORT}
+      - ${MLFLOW_PORT}:${MLFLOW_PORT}
+      - ${JUPYTER_PORT}:${JUPYTER_PORT}
 
     # INFO: Following two lines are necessary for the backtrace by pdb
     stdin_open: true
